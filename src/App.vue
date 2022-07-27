@@ -11,7 +11,7 @@ Remake tweet-gen-api with django (if there's time)
 <template>
   <div
     class="block box"
-    style="width: 480px; minheight: 80%; maxheight: 90%; overflow: scroll"
+    style="width: 480px; minHeight: 80%; maxHeight: 90%; overflow: scroll"
   >
     <h1 class="subtitle">Tweet:</h1>
     <div class="block">
@@ -146,6 +146,5 @@ export default {
   justify-content: center;
   height: 100vh;
   align-items: center;
-  padding: 10%;
 }
 </style>
