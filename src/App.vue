@@ -148,6 +148,7 @@ export default {
   justify-content: center;
   height: 100vh;
   align-items: center;
+  overflow: hidden;
   background-color: hsl(171, 100%, 96%)
 }
 </style>
