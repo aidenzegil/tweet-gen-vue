@@ -12,7 +12,7 @@ Remake tweet-gen-api with django (if there's time)
   <h1 class="subtitle has-text-primary">Vue edition</h1>
   <div
     class="block box"
-    style="width: 480px; minHeight: 80%; maxHeight: 90%; overflow: scroll;"
+    style="width: 480px; maxWidth: 100%; minHeight: 80%; maxHeight: 90%; overflow: scroll;"
   >
     <h1 class="subtitle has-text-primary">Tweet:</h1>
     <div class="block">
