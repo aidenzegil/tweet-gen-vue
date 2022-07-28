@@ -3,17 +3,18 @@ TODO
 Convert useGenerateThread hook to vue ✅
 Convert GeneratedThread functional component to vue ✅
   Maybe just scrap the component and write it into App.vue?
-Sass style => Bulma
+Sass style => Bulma ✅
 Send generated text and prompt to PostgreSQL database (if there's time)
 Remake tweet-gen-api with django (if there's time)
 -->
-
 <template>
+  <h1 class="title has-text-primary">Tweeter Man</h1>
+  <h1 class="subtitle has-text-primary">Vue edition</h1>
   <div
     class="block box"
-    style="width: 480px; minHeight: 80%; maxHeight: 90%; overflow: scroll"
+    style="width: 480px; minHeight: 80%; maxHeight: 90%; overflow: scroll;"
   >
-    <h1 class="subtitle">Tweet:</h1>
+    <h1 class="subtitle has-text-primary">Tweet:</h1>
     <div class="block">
       <textarea
         class="textarea is-primary"
@@ -23,47 +24,44 @@ Remake tweet-gen-api with django (if there's time)
       />
     </div>
     <div class="block buttons has-addons" style="alignitems: flex-end">
-      <button class="button" @click="clearTweet()">Clear</button>
-      <button class="button" @click="fetchGenText(tweet, numThreads)">
+      <button class="button is-danger is-light" @click="clearTweet()">Clear</button>
+      <button :class="[loading == true ? 'button is-primary is-loading' : 'button is-primary is-light']" @click="fetchGenText(tweet, numThreads)">
         Submit
       </button>
     </div>
-    <h1 class="subtitle">Number of Threads:</h1>
+    <h1 class="subtitle has-text-primary">Number of Threads:</h1>
     <div class="block buttons">
       <button
-        :class="[isActive(1) ? 'button is-black' : 'button']"
+        :class="[isActive(1) ? 'button is-primary' : 'button is-primary is-light']"
         @click="updateNum(1)"
       >
         1
       </button>
       <button
-        :class="[isActive(2) ? 'button is-black' : 'button']"
+        :class="[isActive(2) ? 'button is-primary' : 'button is-primary is-light']"
         @click="updateNum(2)"
       >
         2
       </button>
       <button
-        :class="[isActive(3) ? 'button is-black' : 'button']"
+        :class="[isActive(3) ? 'button is-primary' : 'button is-primary is-light']"
         @click="updateNum(3)"
       >
         3
       </button>
       <button
-        :class="[isActive(4) ? 'button is-black' : 'button']"
+        :class="[isActive(4) ? 'button is-primary' : 'button is-primary is-light']"
         @click="updateNum(4)"
       >
         4
       </button>
     </div>
     <div
-      class="block"
+      class="block box has-background-primary-light"
       v-for="genThread in displayedThread"
       v-bind:key="genThread.id"
     >
-      <div class="block box">
         {{ genThread.text }}
-      </div>
-      <button class="button" @click="removeGenItem(genThread.id)">❌</button>
     </div>
   </div>
 </template>
@@ -76,8 +74,9 @@ export default {
   data() {
     return {
       tweet: "",
-      numThreads: 2,
+      numThreads: 1,
       displayedThread: "",
+      loading: false,
     };
   },
   methods: {
@@ -97,6 +96,7 @@ export default {
     },
     clearTweet() {
       this.tweet = "";
+      this.displayedThread = []
     },
     updateNum(number) {
       this.numThreads = number;
@@ -107,11 +107,12 @@ export default {
     },
 
     async fetchGenText(tweet, numThreads, thread = []) {
+      
       if (thread.length >= numThreads) {
-        console.log(thread);
+        this.loading = false;
         return (this.displayedThread = thread);
       }
-
+      this.loading = true
       const prompt =
         "Continue " +
         [
@@ -142,9 +143,11 @@ export default {
 <style>
 #app {
   display: flex;
+  flex-direction: column;
   align-content: center;
   justify-content: center;
   height: 100vh;
   align-items: center;
+  background-color: hsl(171, 100%, 96%)
 }
 </style>
